@@ -1,61 +1,127 @@
 import axios, { AxiosError } from 'axios';
+import { getCache, calculateTTL } from './cache';
 
 export interface ApiResponse {
   data: any;
   error?: string;
+  fromCache?: boolean;
 }
 
-export const fetchApiData = async (url: string): Promise<ApiResponse> => {
-  try {
-    // Try direct fetch first
-    const response = await axios.get(url, {
-      timeout: 10000,
-      headers: {
-        'Accept': 'application/json',
-      },
-    });
+interface FetchOptions {
+  refreshInterval?: number; // in seconds - used to calculate cache TTL
+  bypassCache?: boolean; // Force fresh fetch
+  cacheTTL?: number; // Override TTL in milliseconds
+}
 
-    return {
-      data: response.data,
-    };
-  } catch (error) {
-    const axiosError = error as AxiosError;
-    
-    // If CORS error, try using proxy
-    if (axiosError.code === 'ERR_NETWORK' || (axiosError.response?.status === 0)) {
+/**
+ * Fetch API data with intelligent caching
+ * 
+ * @param url - API endpoint URL
+ * @param options - Fetch options including cache configuration
+ * @returns Promise with API response (may be from cache)
+ */
+export const fetchApiData = async (
+  url: string, 
+  options: FetchOptions = {}
+): Promise<ApiResponse> => {
+  const { refreshInterval, bypassCache = false, cacheTTL } = options;
+  const cache = getCache();
+
+  // Check cache first (unless bypassed)
+  if (!bypassCache) {
+    const cachedData = cache.get(url);
+    if (cachedData !== null) {
+      return {
+        data: cachedData,
+        fromCache: true,
+      };
+    }
+
+    // Check for pending request to avoid duplicate concurrent calls
+    const pendingRequest = cache.getPendingRequest(url);
+    if (pendingRequest) {
       try {
-        const proxyUrl = `/api/proxy?url=${encodeURIComponent(url)}`;
-        const proxyResponse = await axios.get(proxyUrl, {
-          timeout: 10000,
-        });
-        
+        const data = await pendingRequest;
         return {
-          data: proxyResponse.data,
+          data,
+          fromCache: false,
         };
-      } catch (proxyError) {
-        return {
-          data: null,
-          error: 'Network error: Unable to reach the API. Please check your connection.',
-        };
+      } catch (error) {
+        // If pending request failed, continue with new request
       }
     }
-    
-    if (axiosError.response) {
-      return {
-        data: null,
-        error: `API Error: ${axiosError.response.status} - ${axiosError.response.statusText}`,
-      };
-    } else if (axiosError.request) {
-      return {
-        data: null,
-        error: 'Network error: Unable to reach the API. Please check your connection.',
-      };
-    } else {
-      return {
-        data: null,
-        error: `Error: ${axiosError.message}`,
-      };
+  }
+
+  // Create fetch promise
+  const fetchPromise = (async (): Promise<any> => {
+    try {
+      // Try direct fetch first
+      const response = await axios.get(url, {
+        timeout: 10000,
+        headers: {
+          'Accept': 'application/json',
+        },
+      });
+
+      const data = response.data;
+
+      // Cache the successful response
+      if (!bypassCache && data !== null && data !== undefined) {
+        const ttl = cacheTTL || (refreshInterval ? calculateTTL(refreshInterval) : undefined);
+        cache.set(url, data, ttl);
+      }
+
+      return data;
+    } catch (error) {
+      const axiosError = error as AxiosError;
+      
+      // If CORS error, try using proxy
+      if (axiosError.code === 'ERR_NETWORK' || (axiosError.response?.status === 0)) {
+        try {
+          const proxyUrl = `/api/proxy?url=${encodeURIComponent(url)}`;
+          const proxyResponse = await axios.get(proxyUrl, {
+            timeout: 10000,
+          });
+          
+          const data = proxyResponse.data;
+
+          // Cache the successful proxy response
+          if (!bypassCache && data !== null && data !== undefined) {
+            const ttl = cacheTTL || (refreshInterval ? calculateTTL(refreshInterval) : undefined);
+            cache.set(url, data, ttl);
+          }
+
+          return data;
+        } catch (proxyError) {
+          throw new Error('Network error: Unable to reach the API. Please check your connection.');
+        }
+      }
+      
+      if (axiosError.response) {
+        throw new Error(`API Error: ${axiosError.response.status} - ${axiosError.response.statusText}`);
+      } else if (axiosError.request) {
+        throw new Error('Network error: Unable to reach the API. Please check your connection.');
+      } else {
+        throw new Error(`Error: ${axiosError.message}`);
+      }
     }
+  })();
+
+  // Track pending request to prevent duplicates
+  cache.setPendingRequest(url, fetchPromise);
+
+  try {
+    const data = await fetchPromise;
+    return {
+      data,
+      fromCache: false,
+    };
+  } catch (error: any) {
+    return {
+      data: null,
+      error: error.message || 'Failed to fetch data',
+      fromCache: false,
+    };
   }
 };
 
@@ -81,6 +147,16 @@ export const getNestedValue = (obj: any, path: string): any => {
 // Flatten nested object to paths
 export const flattenObject = (obj: any, prefix = ''): Array<{ path: string; value: any; type: string }> => {
   const result: Array<{ path: string; value: any; type: string }> = [];
+
+  // Handle case where root is an array
+  if (Array.isArray(obj) && prefix === '') {
+    result.push({ path: 'root', value: obj, type: 'array' });
+    // If array contains objects, show first item structure
+    if (obj.length > 0 && typeof obj[0] === 'object' && obj[0] !== null) {
+      result.push(...flattenObject(obj[0], '[0]'));
+    }
+    return result;
+  }
 
   for (const key in obj) {
     if (obj.hasOwnProperty(key)) {
@@ -109,4 +185,25 @@ export const flattenObject = (obj: any, prefix = ''): Array<{ path: string; valu
   }
 
   return result;
+};
+
+// Cache management utilities
+export const clearApiCache = (): void => {
+  const cache = getCache();
+  cache.clear();
+};
+
+export const invalidateApiCache = (pattern?: string | RegExp): void => {
+  const cache = getCache();
+  cache.invalidate(pattern);
+};
+
+export const getCacheStats = () => {
+  const cache = getCache();
+  return cache.getStats();
+};
+
+export const deleteApiCache = (url: string): void => {
+  const cache = getCache();
+  cache.delete(url);
 };
