@@ -14,10 +14,10 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={toggleTheme}
-      className="p-2 rounded-lg bg-gray-200 dark:bg-gray-800 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors"
+      className="p-2 rounded-lg bg-gray-200/80 dark:bg-gray-800/80 hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors backdrop-blur-sm border border-gray-300/50 dark:border-gray-700/50"
       aria-label="Toggle theme"
     >
-      {theme === 'dark' ? <Sun className="text-yellow-500" size={20} /> : <Moon className="text-gray-700" size={20} />}
+      {theme === 'dark' ? <Sun className="text-amber-500 dark:text-amber-400" size={20} /> : <Moon className="text-gray-700 dark:text-gray-300" size={20} />}
     </button>
   );
 }
