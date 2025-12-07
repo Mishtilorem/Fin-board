@@ -177,3 +177,7 @@ For issues or questions, please open an issue on GitHub.
 - Built with [Next.js](https://nextjs.org/)
 - Icons from [Lucide](https://lucide.dev/)
 - Charts from [Recharts](https://recharts.org/)
+
+---
+
+**Project completed and ready for deployment** 🚀
