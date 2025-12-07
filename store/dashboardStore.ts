@@ -28,12 +28,11 @@ const saveState = (state: DashboardState) => {
 };
 
 const useDashboardStore = create<DashboardStore>((set, get) => {
-  // Initialize with saved state if available
-  const initialState = typeof window !== 'undefined' ? loadState() : { widgets: [], theme: 'dark' };
-  
+  // Always start with empty state to prevent hydration mismatches
+  // The initialize() function will load the actual state after mount
   return {
-    widgets: initialState.widgets,
-    theme: initialState.theme,
+    widgets: [],
+    theme: 'dark',
 
     initialize: () => {
       const saved = loadState();
