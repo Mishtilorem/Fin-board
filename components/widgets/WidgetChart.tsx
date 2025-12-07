@@ -248,15 +248,15 @@ function WidgetChart({ widget }: WidgetChartProps) {
     return [];
   }, [widget.data, widget.selectedFields]);
 
-  const colors = ['#3b82f6', '#6366f1', '#8b5cf6', '#06b6d4', '#10b981', '#f59e0b'];
+  const colors = ['#8b5cf6', '#6366f1', '#a855f7', '#9333ea', '#7c3aed', '#6d28d9'];
 
   return (
-    <div className="bg-white dark:bg-gray-800/95 backdrop-blur-sm rounded-lg shadow-lg p-4 sm:p-6 relative group h-full border border-gray-200/50 dark:border-gray-700/50 flex flex-col">
+    <div className="bg-white/90 dark:bg-indigo-950/90 backdrop-blur-sm rounded-2xl shadow-xl p-4 sm:p-6 relative group h-full border-2 border-purple-200/50 dark:border-purple-800/50 flex flex-col hover:shadow-2xl transition-all">
       {/* Header */}
       <div className="flex justify-between items-start mb-3 sm:mb-4 gap-2">
         <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1">
           <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white truncate">{widget.name}</h3>
-          <span className="text-xs bg-gray-100 dark:bg-gray-700/60 text-gray-600 dark:text-gray-400 px-1.5 sm:px-2 py-0.5 sm:py-1 rounded font-medium flex-shrink-0">
+          <span className="text-xs bg-gradient-to-r from-purple-100 to-indigo-100 dark:from-purple-900/40 dark:to-indigo-900/40 text-purple-700 dark:text-purple-300 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full font-medium flex-shrink-0 border border-purple-300/50 dark:border-purple-700/50">
             {widget.refreshInterval}s
           </span>
         </div>
@@ -264,20 +264,20 @@ function WidgetChart({ widget }: WidgetChartProps) {
           <button
             onClick={handleRefresh}
             disabled={isRefreshing}
-            className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
+            className="p-1.5 hover:bg-purple-100 dark:hover:bg-purple-900/40 rounded-lg transition-colors"
             title="Refresh"
           >
             <RefreshCw
               size={16}
-              className={`text-gray-600 dark:text-gray-400 ${isRefreshing ? 'animate-spin' : ''}`}
+              className={`text-purple-600 dark:text-purple-400 ${isRefreshing ? 'animate-spin' : ''}`}
             />
           </button>
           <button
             onClick={() => setShowConfigModal(true)}
-            className="p-1.5 hover:bg-gray-100 dark:hover:bg-gray-700 rounded transition-colors"
+            className="p-1.5 hover:bg-purple-100 dark:hover:bg-purple-900/40 rounded-lg transition-colors"
             title="Configure"
           >
-            <Settings size={16} className="text-gray-600 dark:text-gray-400" />
+            <Settings size={16} className="text-indigo-600 dark:text-indigo-400" />
           </button>
           <button
             onClick={handleDelete}
@@ -293,11 +293,11 @@ function WidgetChart({ widget }: WidgetChartProps) {
       <div className="flex-1 min-h-0 w-full">
         {widget.isLoading && !widget.data ? (
           <div className="flex items-center justify-center h-full">
-            <RefreshCw className="animate-spin text-blue-600 dark:text-blue-400" size={32} />
+            <RefreshCw className="animate-spin text-purple-600 dark:text-purple-400" size={32} />
           </div>
         ) : widget.error ? (
           <div className="flex items-center justify-center h-full">
-            <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded p-4 text-red-800 dark:text-red-400">
+            <div className="bg-red-50 dark:bg-red-900/20 border-2 border-red-300 dark:border-red-800 rounded-xl p-4 text-red-800 dark:text-red-400">
               {widget.error}
             </div>
           </div>
@@ -359,7 +359,7 @@ function WidgetChart({ widget }: WidgetChartProps) {
 
       {/* Footer */}
       {widget.lastUpdated && (
-        <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-gray-200 dark:border-gray-700 flex items-center gap-1.5 sm:gap-2 text-xs text-gray-500 dark:text-gray-400">
+        <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-purple-200 dark:border-purple-800 flex items-center gap-1.5 sm:gap-2 text-xs text-purple-600 dark:text-purple-400">
           <Clock size={12} className="flex-shrink-0" />
           <span className="truncate">Last updated: {format(widget.lastUpdated, 'HH:mm:ss')}</span>
         </div>

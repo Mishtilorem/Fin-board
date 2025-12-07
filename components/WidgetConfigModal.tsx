@@ -147,16 +147,16 @@ export default function WidgetConfigModal({ widget, onClose }: WidgetConfigModal
   };
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-7xl max-h-[90vh] overflow-hidden flex flex-col">
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+      <div className="bg-white/95 dark:bg-indigo-950/95 backdrop-blur-md rounded-2xl shadow-2xl w-full max-w-7xl max-h-[90vh] overflow-hidden flex flex-col border-2 border-purple-200/50 dark:border-purple-800/50">
         {/* Header */}
-        <div className="flex justify-between items-center p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Configure Widget</h2>
+        <div className="flex justify-between items-center p-6 border-b-2 border-purple-200 dark:border-purple-800 bg-gradient-to-r from-purple-50/50 to-indigo-50/50 dark:from-purple-900/30 dark:to-indigo-900/30">
+          <h2 className="text-2xl font-bold text-indigo-900 dark:text-purple-100">Configure Widget</h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
+            className="p-2 hover:bg-purple-100 dark:hover:bg-purple-900/40 rounded-xl transition-colors"
           >
-            <X className="text-gray-600 dark:text-gray-400" size={20} />
+            <X className="text-purple-600 dark:text-purple-400" size={20} />
           </button>
         </div>
 
@@ -172,7 +172,7 @@ export default function WidgetConfigModal({ widget, onClose }: WidgetConfigModal
               value={widgetName}
               onChange={(e) => setWidgetName(e.target.value)}
               placeholder="Bitcoin"
-              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+              className="w-full px-4 py-2.5 border-2 border-purple-200 dark:border-purple-700 rounded-xl bg-white dark:bg-indigo-950 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-400 text-sm"
             />
           </div>
 
@@ -187,12 +187,12 @@ export default function WidgetConfigModal({ widget, onClose }: WidgetConfigModal
                 value={apiUrl}
                 onChange={(e) => setApiUrl(e.target.value)}
                 placeholder="https://api.coinbase.com/v2/exchange-rates?currency=BTC"
-                className="flex-1 px-4 py-2.5 text-sm border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="flex-1 px-4 py-2.5 text-sm border-2 border-purple-200 dark:border-purple-700 rounded-xl bg-white dark:bg-indigo-950 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-400"
               />
               <button
                 onClick={testApi}
                 disabled={isTesting || !apiUrl.trim()}
-                className="px-4 py-2.5 bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-500 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm font-medium"
+                className="px-4 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 dark:from-purple-500 dark:to-indigo-500 dark:hover:from-purple-600 dark:hover:to-indigo-600 text-white rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm font-medium shadow-lg shadow-purple-500/30"
               >
                 {isTesting ? (
                   <>
@@ -208,8 +208,8 @@ export default function WidgetConfigModal({ widget, onClose }: WidgetConfigModal
               <div
                 className={`p-3 rounded-lg flex items-start gap-2.5 ${
                   testResult.success
-                    ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-800 dark:text-blue-400 border border-blue-200 dark:border-blue-800'
-                    : 'bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-400 border border-red-200 dark:border-red-800'
+                    ? 'bg-purple-50 dark:bg-purple-900/20 text-purple-800 dark:text-purple-400 border-2 border-purple-200 dark:border-purple-800'
+                    : 'bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-400 border-2 border-red-200 dark:border-red-800'
                 }`}
               >
                 <Eye size={18} className="flex-shrink-0 mt-0.5" />
@@ -233,7 +233,7 @@ export default function WidgetConfigModal({ widget, onClose }: WidgetConfigModal
               value={refreshInterval}
               onChange={(e) => setRefreshInterval(Number(e.target.value) || 30)}
               min={1}
-              className="w-full px-4 py-2.5 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+              className="w-full px-4 py-2.5 border-2 border-purple-200 dark:border-purple-700 rounded-xl bg-white dark:bg-indigo-950 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-400 text-sm"
             />
           </div>
 
@@ -245,10 +245,10 @@ export default function WidgetConfigModal({ widget, onClose }: WidgetConfigModal
             <div className="flex flex-wrap gap-2">
               <button
                 onClick={() => setDisplayMode('card')}
-                className={`flex items-center gap-2 px-4 py-2.5 rounded-lg transition-all text-sm font-medium ${
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all text-sm font-medium ${
                   displayMode === 'card'
-                    ? 'bg-blue-500 text-white shadow-md'
-                    : 'bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600'
+                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg'
+                    : 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-purple-800/40 border-2 border-purple-300/50 dark:border-purple-700/50'
                 }`}
               >
                 <LayoutDashboard size={18} />
@@ -295,7 +295,7 @@ export default function WidgetConfigModal({ widget, onClose }: WidgetConfigModal
                     placeholder="Search for fields..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 border border-gray-300 dark:border-gray-700 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
+                    className="w-full pl-10 pr-4 py-2.5 border-2 border-purple-200 dark:border-purple-700 rounded-xl bg-white dark:bg-indigo-950 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-400 text-sm"
                   />
                 </div>
                 {displayMode === 'table' && (
@@ -339,7 +339,7 @@ export default function WidgetConfigModal({ widget, onClose }: WidgetConfigModal
                             <div
                               key={index}
                               className={`p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${
-                                isSelected ? 'bg-blue-50 dark:bg-blue-900/20' : ''
+                                isSelected ? 'bg-purple-50 dark:bg-purple-900/20 border-2 border-purple-300 dark:border-purple-700' : ''
                               }`}
                             >
                               <div className="flex items-start gap-3">
@@ -347,8 +347,8 @@ export default function WidgetConfigModal({ widget, onClose }: WidgetConfigModal
                                   onClick={() => toggleField(field)}
                                   className={`mt-0.5 flex-shrink-0 p-1.5 rounded-md transition-colors ${
                                     isSelected
-                                      ? 'bg-blue-600 dark:bg-blue-500 text-white'
-                                      : 'bg-gray-200 dark:bg-gray-700 text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-600'
+                                      ? 'bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-500 dark:to-indigo-500 text-white'
+                                      : 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 hover:bg-purple-200 dark:hover:bg-purple-800/40'
                                   }`}
                                 >
                                   {isSelected ? <Check size={14} /> : <Plus size={14} />}
@@ -381,7 +381,7 @@ export default function WidgetConfigModal({ widget, onClose }: WidgetConfigModal
                     <h3 className="text-base font-semibold text-gray-900 dark:text-white">
                       Selected Fields
                     </h3>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 px-2 py-1 rounded-full font-medium">
+                    <span className="text-xs text-gray-500 dark:text-gray-400 bg-gradient-to-r from-purple-100 to-indigo-100 dark:from-purple-900/40 dark:to-indigo-900/40 text-purple-700 dark:text-purple-300 px-2 py-1 rounded-full font-medium border border-purple-300/50 dark:border-purple-700/50">
                       {selectedFields.length} selected
                     </span>
                   </div>
@@ -440,7 +440,7 @@ export default function WidgetConfigModal({ widget, onClose }: WidgetConfigModal
           <button
             onClick={handleSubmit}
             disabled={!widgetName.trim() || !apiUrl.trim() || selectedFields.length === 0}
-            className="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-500 text-white rounded-lg transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium"
+            className="px-6 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 dark:from-purple-500 dark:to-indigo-500 dark:hover:from-purple-600 dark:hover:to-indigo-600 text-white rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm font-medium shadow-lg shadow-purple-500/30"
           >
             Save Changes
           </button>
