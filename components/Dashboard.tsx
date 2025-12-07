@@ -15,15 +15,17 @@ import { Widget } from '@/types/widget';
 
 interface SortableWidgetProps {
   widget: Widget;
+  className?: string;
+  style?: React.CSSProperties;
 }
 
-function SortableWidget({ widget }: SortableWidgetProps) {
+function SortableWidget({ widget, className = '', style: customStyle }: SortableWidgetProps) {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({ id: widget.id });
-  const removeWidget = useDashboardStore((state) => state.removeWidget);
 
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
+    ...customStyle,
   };
 
   const renderWidget = () => {
@@ -40,11 +42,11 @@ function SortableWidget({ widget }: SortableWidgetProps) {
   };
 
   return (
-    <div ref={setNodeRef} style={style} className="relative group">
+    <div ref={setNodeRef} style={style} className={`relative group h-full ${className}`}>
       <div
         {...attributes}
         {...listeners}
-        className="absolute top-2 left-2 z-10 cursor-move opacity-0 group-hover:opacity-100 transition-opacity bg-gray-700 hover:bg-gray-600 rounded p-1"
+        className="absolute top-2 left-2 z-10 cursor-move opacity-0 sm:group-hover:opacity-100 transition-opacity bg-gray-700/80 hover:bg-gray-600/80 dark:bg-gray-700/80 dark:hover:bg-gray-600/80 rounded p-1 backdrop-blur-sm touch-none"
         title="Drag to reorder"
       >
         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
@@ -66,6 +68,7 @@ export default function Dashboard() {
   const theme = useDashboardStore((state) => state.theme);
   const reorderWidgets = useDashboardStore((state) => state.reorderWidgets);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -75,6 +78,7 @@ export default function Dashboard() {
   );
 
   useEffect(() => {
+    setMounted(true);
     if (typeof window !== 'undefined') {
       document.documentElement.classList.toggle('dark', theme === 'dark');
     }
@@ -90,60 +94,99 @@ export default function Dashboard() {
     }
   };
 
-  const gridCols = widgets.length === 1 ? 'grid-cols-1' : 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3';
-
   return (
-    <div className={`min-h-screen ${theme === 'dark' ? 'dark bg-gray-900' : 'bg-gray-50'} transition-colors`}>
-      <div className="container mx-auto px-4 py-8">
+    <div className={`min-h-screen transition-colors ${
+      theme === 'dark' 
+        ? 'dark bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950' 
+        : 'bg-gradient-to-br from-gray-50 via-gray-100 to-gray-50'
+    }`}>
+      <div className="container mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 md:py-8">
         {/* Header */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
-          <div className="mb-4 md:mb-0">
-            <div className="flex items-center gap-2 mb-2">
-              <BarChart3 className="text-green-500" size={24} />
-              <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Finance Dashboard</h1>
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 sm:mb-8">
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2 mb-1">
+              <BarChart3 className="text-blue-600 dark:text-blue-400 flex-shrink-0" size={20} />
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white truncate">Finance Dashboard</h1>
             </div>
-            <p className="text-sm text-gray-600 dark:text-gray-400">
-              {widgets.length} active widget{widgets.length !== 1 ? 's' : ''} • Real-time data
+            <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
+              {mounted ? (
+                <>
+                  {widgets.length} active widget{widgets.length !== 1 ? 's' : ''} • Real-time data
+                </>
+              ) : (
+                'Loading... • Real-time data'
+              )}
             </p>
           </div>
-          <div className="flex gap-3">
+          <div className="flex gap-2 sm:gap-3 w-full sm:w-auto">
             <ThemeToggle />
             <button
               onClick={() => setIsAddModalOpen(true)}
-              className="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded-lg transition-colors font-medium"
+              className="flex items-center justify-center gap-1.5 sm:gap-2 bg-blue-600 hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-500 text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-lg transition-colors font-medium shadow-lg shadow-blue-600/20 text-sm sm:text-base flex-1 sm:flex-none"
             >
-              <Plus size={20} />
-              Add Widget
+              <Plus size={18} className="sm:w-5 sm:h-5" />
+              <span className="hidden xs:inline">Add Widget</span>
+              <span className="xs:hidden">Add</span>
             </button>
           </div>
         </div>
 
         {/* Widgets Grid */}
-        {widgets.length === 0 ? (
-          <div className="text-center py-20">
-            <div className="inline-block p-8 border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg mb-4">
-              <Plus className="mx-auto text-gray-400 dark:text-gray-600 mb-4" size={48} />
-              <h3 className="text-xl font-semibold text-gray-700 dark:text-gray-300 mb-2">Add Widget</h3>
-              <p className="text-gray-500 dark:text-gray-500">Connect to a finance API and create a custom widget</p>
+        {!mounted ? (
+          <div className="flex items-center justify-center min-h-[50vh] sm:min-h-[60vh]">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 dark:border-blue-400 mx-auto mb-4"></div>
+              <p className="text-sm text-gray-500 dark:text-gray-400">Loading dashboard...</p>
             </div>
+          </div>
+        ) : widgets.length === 0 ? (
+          <div className="flex items-center justify-center min-h-[50vh] sm:min-h-[60vh]">
+            <button
+              onClick={() => setIsAddModalOpen(true)}
+              className="border-2 border-dashed border-blue-500 dark:border-blue-500 rounded-lg p-8 sm:p-12 hover:border-blue-600 dark:hover:border-blue-400 transition-colors flex flex-col items-center justify-center bg-white/5 dark:bg-white/5 backdrop-blur-sm w-full max-w-sm mx-4"
+            >
+              <div className="bg-blue-600 dark:bg-blue-500 rounded-full p-4 sm:p-5 mb-3 sm:mb-4 shadow-lg">
+                <Plus className="text-white" size={32} />
+              </div>
+              <h3 className="text-lg sm:text-xl font-semibold text-gray-900 dark:text-white mb-2">Add Widget</h3>
+              <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 text-center px-4">
+                Connect to a finance API and create a custom widget
+              </p>
+            </button>
           </div>
         ) : (
           <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
             <SortableContext items={widgets.map((w) => w.id)} strategy={rectSortingStrategy}>
-              <div className={`grid ${gridCols} gap-6`}>
-                {widgets.map((widget) => (
-                  <SortableWidget key={widget.id} widget={widget} />
-                ))}
+              <div 
+                className="grid gap-4 sm:gap-5 md:gap-6 auto-rows-fr w-full"
+                style={{
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 280px), 1fr))',
+                }}
+              >
+                {widgets.map((widget) => {
+                  // For tables and charts, span 2 columns to give them more width
+                  const isWideWidget = widget.displayMode === 'table' || widget.displayMode === 'chart';
+                  
+                  return (
+                    <SortableWidget 
+                      key={widget.id} 
+                      widget={widget}
+                      style={isWideWidget ? {
+                        gridColumn: 'span 2',
+                      } : undefined}
+                    />
+                  );
+                })}
                 {/* Add Widget Placeholder */}
                 <button
                   onClick={() => setIsAddModalOpen(true)}
-                  className="border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-8 hover:border-green-500 dark:hover:border-green-500 transition-colors flex flex-col items-center justify-center min-h-[300px]"
+                  className="border-2 border-dashed border-blue-500 dark:border-blue-500 rounded-lg p-6 sm:p-8 hover:border-blue-600 dark:hover:border-blue-400 transition-colors flex flex-col items-center justify-center bg-white/5 dark:bg-white/5 backdrop-blur-sm h-full min-h-[200px]"
                 >
-                  <div className="bg-green-500 rounded-full p-4 mb-4">
-                    <Plus className="text-white" size={32} />
+                  <div className="bg-blue-600 dark:bg-blue-500 rounded-full p-3 sm:p-4 mb-3 sm:mb-4 shadow-lg">
+                    <Plus className="text-white" size={28} />
                   </div>
-                  <h3 className="text-lg font-semibold text-gray-700 dark:text-gray-300 mb-2">Add Widget</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-500 text-center">
+                  <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white mb-1 sm:mb-2">Add Widget</h3>
+                  <p className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 text-center px-2">
                     Connect to a finance API and create a custom widget
                   </p>
                 </button>
