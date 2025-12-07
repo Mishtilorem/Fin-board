@@ -47,7 +47,7 @@ function SortableWidget({ widget, className = '', style: customStyle }: Sortable
       <div
         {...attributes}
         {...listeners}
-        className="absolute top-2 left-2 z-10 cursor-move opacity-0 sm:group-hover:opacity-100 transition-opacity bg-purple-600/80 hover:bg-purple-500/80 dark:bg-purple-700/80 dark:hover:bg-purple-600/80 rounded-lg p-1.5 backdrop-blur-sm touch-none shadow-md"
+        className="absolute top-2 left-2 z-10 cursor-move opacity-0 sm:group-hover:opacity-100 transition-opacity bg-cyan-600/80 hover:bg-cyan-500/80 dark:bg-cyan-700/80 dark:hover:bg-cyan-600/80 rounded-lg p-1.5 backdrop-blur-sm touch-none shadow-md"
         title="Drag to reorder"
       >
         <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
@@ -148,16 +148,16 @@ export default function Dashboard() {
   return (
     <div className={`min-h-screen transition-colors ${
       theme === 'dark' 
-        ? 'dark bg-gradient-to-br from-indigo-950 via-purple-950 to-indigo-950' 
-        : 'bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50'
+        ? 'dark bg-gradient-to-br from-slate-950 via-cyan-950 to-blue-950' 
+        : 'bg-gradient-to-br from-cyan-50 via-blue-50 to-teal-50'
     }`}>
       <div className="container mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 md:py-8">
         {/* Header */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 sm:mb-8">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <BarChart3 className="text-purple-600 dark:text-purple-400 flex-shrink-0" size={20} />
-              <h1 className="text-2xl sm:text-3xl font-bold text-indigo-900 dark:text-purple-100 truncate">Finance Dashboard</h1>
+              <BarChart3 className="text-cyan-600 dark:text-cyan-400 flex-shrink-0" size={20} />
+              <h1 className="text-2xl sm:text-3xl font-bold text-slate-900 dark:text-cyan-100 truncate">Finance Dashboard</h1>
             </div>
             <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-400">
               {mounted ? (
@@ -173,7 +173,7 @@ export default function Dashboard() {
             <ThemeToggle />
             <button
               onClick={handleExport}
-              className="flex items-center justify-center gap-1.5 sm:gap-2 bg-indigo-500 hover:bg-indigo-600 dark:bg-indigo-600 dark:hover:bg-indigo-500 text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl transition-all font-medium text-sm sm:text-base shadow-md hover:shadow-lg"
+              className="flex items-center justify-center gap-1.5 sm:gap-2 bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500 text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl transition-all font-medium text-sm sm:text-base shadow-md hover:shadow-lg"
               title="Export dashboard configuration"
             >
               <Download size={16} className="sm:w-4 sm:h-4" />
@@ -181,7 +181,7 @@ export default function Dashboard() {
             </button>
             <button
               onClick={handleImport}
-              className="flex items-center justify-center gap-1.5 sm:gap-2 bg-purple-500 hover:bg-purple-600 dark:bg-purple-600 dark:hover:bg-purple-500 text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl transition-all font-medium text-sm sm:text-base shadow-md hover:shadow-lg"
+              className="flex items-center justify-center gap-1.5 sm:gap-2 bg-cyan-500 hover:bg-cyan-600 dark:bg-cyan-600 dark:hover:bg-cyan-500 text-white px-3 sm:px-4 py-2 sm:py-2.5 rounded-xl transition-all font-medium text-sm sm:text-base shadow-md hover:shadow-lg"
               title="Import dashboard configuration"
             >
               <Upload size={16} className="sm:w-4 sm:h-4" />
@@ -189,7 +189,7 @@ export default function Dashboard() {
             </button>
             <button
               onClick={() => setIsAddModalOpen(true)}
-              className="flex items-center justify-center gap-1.5 sm:gap-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 dark:from-purple-500 dark:to-indigo-500 dark:hover:from-purple-600 dark:hover:to-indigo-600 text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl transition-all font-medium shadow-lg shadow-purple-500/30 text-sm sm:text-base flex-1 sm:flex-none"
+              className="flex items-center justify-center gap-1.5 sm:gap-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 dark:from-cyan-500 dark:to-blue-500 dark:hover:from-cyan-600 dark:hover:to-blue-600 text-white px-3 sm:px-5 py-2 sm:py-2.5 rounded-xl transition-all font-medium shadow-lg shadow-cyan-500/30 text-sm sm:text-base flex-1 sm:flex-none"
             >
               <Plus size={18} className="sm:w-5 sm:h-5" />
               <span className="hidden xs:inline">Add Widget</span>
@@ -202,7 +202,7 @@ export default function Dashboard() {
         {!mounted ? (
           <div className="flex items-center justify-center min-h-[50vh] sm:min-h-[60vh]">
             <div className="text-center">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-600 dark:border-purple-400 mx-auto mb-4"></div>
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-cyan-600 dark:border-cyan-400 mx-auto mb-4"></div>
               <p className="text-sm text-gray-500 dark:text-gray-400">Loading dashboard...</p>
             </div>
           </div>
@@ -210,13 +210,13 @@ export default function Dashboard() {
           <div className="flex items-center justify-center min-h-[50vh] sm:min-h-[60vh]">
             <button
               onClick={() => setIsAddModalOpen(true)}
-              className="border-2 border-dashed border-purple-400 dark:border-purple-500 rounded-2xl p-8 sm:p-12 hover:border-purple-500 dark:hover:border-purple-400 transition-all flex flex-col items-center justify-center bg-gradient-to-br from-purple-50/50 to-indigo-50/50 dark:from-purple-900/20 dark:to-indigo-900/20 backdrop-blur-sm w-full max-w-sm mx-4 shadow-lg hover:shadow-xl"
+              className="border-2 border-dashed border-cyan-400 dark:border-cyan-500 rounded-2xl p-8 sm:p-12 hover:border-cyan-500 dark:hover:border-cyan-400 transition-all flex flex-col items-center justify-center bg-gradient-to-br from-cyan-50/50 to-blue-50/50 dark:from-cyan-900/20 dark:to-blue-900/20 backdrop-blur-sm w-full max-w-sm mx-4 shadow-lg hover:shadow-xl"
             >
-              <div className="bg-gradient-to-br from-purple-600 to-indigo-600 dark:from-purple-500 dark:to-indigo-500 rounded-full p-4 sm:p-5 mb-3 sm:mb-4 shadow-lg">
+              <div className="bg-gradient-to-br from-cyan-600 to-blue-600 dark:from-cyan-500 dark:to-blue-500 rounded-full p-4 sm:p-5 mb-3 sm:mb-4 shadow-lg">
                 <Plus className="text-white" size={32} />
               </div>
-              <h3 className="text-lg sm:text-xl font-semibold text-indigo-900 dark:text-purple-100 mb-2">Add Widget</h3>
-              <p className="text-xs sm:text-sm text-indigo-700 dark:text-purple-300 text-center px-4">
+              <h3 className="text-lg sm:text-xl font-semibold text-slate-900 dark:text-cyan-100 mb-2">Add Widget</h3>
+              <p className="text-xs sm:text-sm text-slate-700 dark:text-cyan-300 text-center px-4">
                 Connect to a finance API and create a custom widget
               </p>
             </button>
@@ -247,13 +247,13 @@ export default function Dashboard() {
                 {/* Add Widget Placeholder */}
                 <button
                   onClick={() => setIsAddModalOpen(true)}
-                  className="border-2 border-dashed border-purple-400 dark:border-purple-500 rounded-2xl p-6 sm:p-8 hover:border-purple-500 dark:hover:border-purple-400 transition-all flex flex-col items-center justify-center bg-gradient-to-br from-purple-50/50 to-indigo-50/50 dark:from-purple-900/20 dark:to-indigo-900/20 backdrop-blur-sm h-full min-h-[200px] shadow-md hover:shadow-lg"
+                  className="border-2 border-dashed border-cyan-400 dark:border-cyan-500 rounded-2xl p-6 sm:p-8 hover:border-cyan-500 dark:hover:border-cyan-400 transition-all flex flex-col items-center justify-center bg-gradient-to-br from-cyan-50/50 to-blue-50/50 dark:from-cyan-900/20 dark:to-blue-900/20 backdrop-blur-sm h-full min-h-[200px] shadow-md hover:shadow-lg"
                 >
-                  <div className="bg-gradient-to-br from-purple-600 to-indigo-600 dark:from-purple-500 dark:to-indigo-500 rounded-full p-3 sm:p-4 mb-3 sm:mb-4 shadow-lg">
+                  <div className="bg-gradient-to-br from-cyan-600 to-blue-600 dark:from-cyan-500 dark:to-blue-500 rounded-full p-3 sm:p-4 mb-3 sm:mb-4 shadow-lg">
                     <Plus className="text-white" size={28} />
                   </div>
-                  <h3 className="text-base sm:text-lg font-semibold text-indigo-900 dark:text-purple-100 mb-1 sm:mb-2">Add Widget</h3>
-                  <p className="text-xs sm:text-sm text-indigo-700 dark:text-purple-300 text-center px-2">
+                  <h3 className="text-base sm:text-lg font-semibold text-slate-900 dark:text-cyan-100 mb-1 sm:mb-2">Add Widget</h3>
+                  <p className="text-xs sm:text-sm text-slate-700 dark:text-cyan-300 text-center px-2">
                     Connect to a finance API and create a custom widget
                   </p>
                 </button>

@@ -201,12 +201,12 @@ function WidgetTable({ widget }: WidgetTableProps) {
   };
 
   return (
-    <div className="bg-white/90 dark:bg-indigo-950/90 backdrop-blur-sm rounded-2xl shadow-xl p-4 sm:p-6 relative group h-full border-2 border-purple-200/50 dark:border-purple-800/50 flex flex-col hover:shadow-2xl transition-all">
+    <div className="bg-white/90 dark:bg-slate-950/90 backdrop-blur-sm rounded-2xl shadow-xl p-4 sm:p-6 relative group h-full border-2 border-cyan-200/50 dark:border-cyan-800/50 flex flex-col hover:shadow-2xl transition-all">
       {/* Header */}
       <div className="flex justify-between items-start mb-3 sm:mb-4 gap-2">
         <div className="flex items-center gap-1.5 sm:gap-2 min-w-0 flex-1">
           <h3 className="text-base sm:text-lg font-semibold text-gray-900 dark:text-white truncate">{widget.name}</h3>
-          <span className="text-xs bg-gradient-to-r from-purple-100 to-indigo-100 dark:from-purple-900/40 dark:to-indigo-900/40 text-purple-700 dark:text-purple-300 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full font-medium flex-shrink-0 border border-purple-300/50 dark:border-purple-700/50">
+          <span className="text-xs bg-gradient-to-r from-cyan-100 to-blue-100 dark:from-cyan-900/40 dark:to-blue-900/40 text-cyan-700 dark:text-cyan-300 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full font-medium flex-shrink-0 border border-cyan-300/50 dark:border-cyan-700/50">
             {widget.refreshInterval}s
           </span>
         </div>
@@ -214,20 +214,20 @@ function WidgetTable({ widget }: WidgetTableProps) {
           <button
             onClick={handleRefresh}
             disabled={isRefreshing}
-            className="p-1.5 hover:bg-purple-100 dark:hover:bg-purple-900/40 rounded-lg transition-colors"
+            className="p-1.5 hover:bg-cyan-100 dark:hover:bg-cyan-900/40 rounded-lg transition-colors"
             title="Refresh"
           >
             <RefreshCw
               size={16}
-              className={`text-purple-600 dark:text-purple-400 ${isRefreshing ? 'animate-spin' : ''}`}
+              className={`text-cyan-600 dark:text-cyan-400 ${isRefreshing ? 'animate-spin' : ''}`}
             />
           </button>
           <button
             onClick={() => setShowConfigModal(true)}
-            className="p-1.5 hover:bg-purple-100 dark:hover:bg-purple-900/40 rounded-lg transition-colors"
+            className="p-1.5 hover:bg-cyan-100 dark:hover:bg-cyan-900/40 rounded-lg transition-colors"
             title="Configure"
           >
-            <Settings size={16} className="text-indigo-600 dark:text-indigo-400" />
+            <Settings size={16} className="text-cyan-600 dark:text-cyan-400" />
           </button>
           <button
             onClick={handleDelete}
@@ -247,7 +247,7 @@ function WidgetTable({ widget }: WidgetTableProps) {
             placeholder="Search table..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-3 sm:pl-4 pr-3 sm:pr-4 py-2 text-sm sm:text-base border-2 border-purple-200 dark:border-purple-700 rounded-xl bg-white dark:bg-indigo-950 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-400"
+            className="w-full pl-3 sm:pl-4 pr-3 sm:pr-4 py-2 text-sm sm:text-base border-2 border-cyan-200 dark:border-cyan-700 rounded-xl bg-white dark:bg-slate-950 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-cyan-400"
           />
         </div>
       </div>
@@ -256,7 +256,7 @@ function WidgetTable({ widget }: WidgetTableProps) {
       <div className="flex-1 min-h-0 flex flex-col">
         {widget.isLoading && !widget.data ? (
           <div className="flex items-center justify-center py-12">
-            <RefreshCw className="animate-spin text-purple-600 dark:text-purple-400" size={32} />
+            <RefreshCw className="animate-spin text-cyan-600 dark:text-cyan-400" size={32} />
           </div>
         ) : widget.error ? (
           <div className="bg-red-50 dark:bg-red-900/20 border-2 border-red-300 dark:border-red-800 rounded-xl p-4 text-red-800 dark:text-red-400">
@@ -269,20 +269,20 @@ function WidgetTable({ widget }: WidgetTableProps) {
         ) : (
           <>
             {/* Table - Full width, no horizontal scroll */}
-            <div className="overflow-y-auto flex-1 min-h-0 border-2 border-purple-200 dark:border-purple-800 rounded-xl">
+            <div className="overflow-y-auto flex-1 min-h-0 border-2 border-cyan-200 dark:border-cyan-800 rounded-xl">
               <table className="w-full">
                 <colgroup>
                   {columns.map((_, index) => (
                     <col key={index} className="w-auto" />
                   ))}
                 </colgroup>
-                <thead className="sticky top-0 bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/40 dark:to-indigo-900/40 z-10">
-                  <tr className="border-b-2 border-purple-200 dark:border-purple-800">
+                <thead className="sticky top-0 bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-cyan-900/40 dark:to-blue-900/40 z-10">
+                  <tr className="border-b-2 border-cyan-200 dark:border-cyan-800">
                     {columns.map((col) => (
                       <th
                         key={col}
                         onClick={() => handleSort(col)}
-                        className="text-left py-2 sm:py-3 px-2 sm:px-4 text-xs sm:text-sm font-semibold text-purple-900 dark:text-purple-200 cursor-pointer hover:bg-purple-100 dark:hover:bg-purple-900/50 uppercase"
+                        className="text-left py-2 sm:py-3 px-2 sm:px-4 text-xs sm:text-sm font-semibold text-cyan-900 dark:text-cyan-200 cursor-pointer hover:bg-cyan-100 dark:hover:bg-cyan-900/50 uppercase"
                       >
                         <div className="flex items-center gap-2">
                           <span className="truncate">{col.replace(/_/g, ' ')}</span>
@@ -298,7 +298,7 @@ function WidgetTable({ widget }: WidgetTableProps) {
                   {paginatedData.map((row, idx) => (
                     <tr
                       key={idx}
-                      className="border-b border-purple-100 dark:border-purple-900/50 hover:bg-purple-50/50 dark:hover:bg-purple-900/30"
+                      className="border-b border-cyan-100 dark:border-cyan-900/50 hover:bg-cyan-50/50 dark:hover:bg-cyan-900/30"
                     >
                       {columns.map((col) => {
                         const cellValue = typeof row === 'object' && row !== null
@@ -332,7 +332,7 @@ function WidgetTable({ widget }: WidgetTableProps) {
                       setRowsPerPage(Number(e.target.value));
                       setCurrentPage(1);
                     }}
-                    className="px-2 py-1 border-2 border-purple-200 dark:border-purple-700 rounded-xl bg-white dark:bg-indigo-950 text-gray-900 dark:text-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-400"
+                    className="px-2 py-1 border-2 border-cyan-200 dark:border-cyan-700 rounded-xl bg-white dark:bg-slate-950 text-gray-900 dark:text-white text-xs sm:text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-cyan-400"
                   >
                     <option value={5}>5</option>
                     <option value={10}>10</option>
@@ -352,7 +352,7 @@ function WidgetTable({ widget }: WidgetTableProps) {
                   <button
                     onClick={() => handlePageChange(currentPage - 1)}
                     disabled={currentPage === 1}
-                    className="px-2 sm:px-3 py-1 text-xs sm:text-sm border-2 border-purple-200 dark:border-purple-700 rounded-xl bg-white dark:bg-indigo-950 text-purple-700 dark:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/40 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="px-2 sm:px-3 py-1 text-xs sm:text-sm border-2 border-cyan-200 dark:border-cyan-700 rounded-xl bg-white dark:bg-slate-950 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-50 dark:hover:bg-cyan-900/40 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
                     Previous
                   </button>
@@ -377,8 +377,8 @@ function WidgetTable({ widget }: WidgetTableProps) {
                           onClick={() => handlePageChange(pageNum)}
                           className={`px-2 sm:px-3 py-1 text-xs sm:text-sm border rounded transition-colors ${
                             currentPage === pageNum
-                              ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white border-purple-600'
-                              : 'border-purple-200 dark:border-purple-700 bg-white dark:bg-indigo-950 text-purple-700 dark:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/40'
+                              ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white border-cyan-600'
+                              : 'border-cyan-200 dark:border-cyan-700 bg-white dark:bg-slate-950 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-50 dark:hover:bg-cyan-900/40'
                           }`}
                         >
                           {pageNum}
@@ -390,7 +390,7 @@ function WidgetTable({ widget }: WidgetTableProps) {
                   <button
                     onClick={() => handlePageChange(currentPage + 1)}
                     disabled={currentPage === totalPages}
-                    className="px-2 sm:px-3 py-1 text-xs sm:text-sm border-2 border-purple-200 dark:border-purple-700 rounded-xl bg-white dark:bg-indigo-950 text-purple-700 dark:text-purple-300 hover:bg-purple-50 dark:hover:bg-purple-900/40 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                    className="px-2 sm:px-3 py-1 text-xs sm:text-sm border-2 border-cyan-200 dark:border-cyan-700 rounded-xl bg-white dark:bg-slate-950 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-50 dark:hover:bg-cyan-900/40 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
                   >
                     Next
                   </button>
@@ -403,7 +403,7 @@ function WidgetTable({ widget }: WidgetTableProps) {
 
       {/* Footer */}
       {widget.lastUpdated && (
-        <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-purple-200 dark:border-purple-800 flex items-center gap-1.5 sm:gap-2 text-xs text-purple-600 dark:text-purple-400">
+        <div className="mt-3 sm:mt-4 pt-3 sm:pt-4 border-t border-cyan-200 dark:border-cyan-800 flex items-center gap-1.5 sm:gap-2 text-xs text-cyan-600 dark:text-cyan-400">
           <Clock size={12} className="flex-shrink-0" />
           <span className="truncate">Last updated: {format(widget.lastUpdated, 'HH:mm:ss')}</span>
         </div>

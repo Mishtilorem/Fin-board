@@ -127,15 +127,15 @@ export default function AddWidgetModal({ onClose }: AddWidgetModalProps) {
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-2 sm:p-4">
-      <div className="bg-white/95 dark:bg-indigo-950/95 backdrop-blur-md rounded-2xl shadow-2xl w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden flex flex-col m-2 sm:m-0 border-2 border-purple-200/50 dark:border-purple-800/50">
+      <div className="bg-white/95 dark:bg-slate-950/95 backdrop-blur-md rounded-2xl shadow-2xl w-full max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-hidden flex flex-col m-2 sm:m-0 border-2 border-cyan-200/50 dark:border-cyan-800/50">
         {/* Header */}
-        <div className="flex justify-between items-center p-4 sm:p-6 border-b-2 border-purple-200 dark:border-purple-800 bg-gradient-to-r from-purple-50/50 to-indigo-50/50 dark:from-purple-900/30 dark:to-indigo-900/30">
-          <h2 className="text-xl sm:text-2xl font-bold text-indigo-900 dark:text-purple-100">Add New Widget</h2>
+        <div className="flex justify-between items-center p-4 sm:p-6 border-b-2 border-cyan-200 dark:border-cyan-800 bg-gradient-to-r from-cyan-50/50 to-blue-50/50 dark:from-cyan-900/30 dark:to-blue-900/30">
+          <h2 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-cyan-100">Add New Widget</h2>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-purple-100 dark:hover:bg-purple-900/40 rounded-xl transition-colors"
+            className="p-2 hover:bg-cyan-100 dark:hover:bg-cyan-900/40 rounded-xl transition-colors"
           >
-            <X className="text-purple-600 dark:text-purple-400" size={20} />
+            <X className="text-cyan-600 dark:text-cyan-400" size={20} />
           </button>
         </div>
 
@@ -151,7 +151,7 @@ export default function AddWidgetModal({ onClose }: AddWidgetModalProps) {
               value={widgetName}
               onChange={(e) => setWidgetName(e.target.value)}
               placeholder="Bitcoin"
-              className="w-full px-4 py-2.5 border-2 border-purple-200 dark:border-purple-700 rounded-xl bg-white dark:bg-indigo-950 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-400 text-sm"
+              className="w-full px-4 py-2.5 border-2 border-cyan-200 dark:border-cyan-700 rounded-xl bg-white dark:bg-slate-950 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-400 text-sm"
             />
           </div>
 
@@ -166,12 +166,12 @@ export default function AddWidgetModal({ onClose }: AddWidgetModalProps) {
                 value={apiUrl}
                 onChange={(e) => setApiUrl(e.target.value)}
                 placeholder="https://api.coinbase.com/v2/exchange-rates?currency=BTC"
-                className="flex-1 px-4 py-2.5 text-sm border-2 border-purple-200 dark:border-purple-700 rounded-xl bg-white dark:bg-indigo-950 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-400"
+                className="flex-1 px-4 py-2.5 text-sm border-2 border-cyan-200 dark:border-cyan-700 rounded-xl bg-white dark:bg-slate-950 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-400"
               />
               <button
                 onClick={testApi}
                 disabled={isTesting || !apiUrl.trim()}
-                className="w-full sm:w-auto px-4 py-2.5 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 dark:from-purple-500 dark:to-indigo-500 dark:hover:from-purple-600 dark:hover:to-indigo-600 text-white rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm font-medium shadow-lg shadow-purple-500/30"
+                className="w-full sm:w-auto px-4 py-2.5 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 dark:from-cyan-500 dark:to-blue-500 dark:hover:from-cyan-600 dark:hover:to-blue-600 text-white rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-sm font-medium shadow-lg shadow-cyan-500/30"
               >
                 {isTesting ? (
                   <>
@@ -187,7 +187,7 @@ export default function AddWidgetModal({ onClose }: AddWidgetModalProps) {
               <div
                 className={`mt-2 p-3 rounded-lg flex items-start gap-2.5 ${
                   testResult.success
-                    ? 'bg-purple-50 dark:bg-purple-900/20 text-purple-800 dark:text-purple-400 border-2 border-purple-200 dark:border-purple-800'
+                    ? 'bg-cyan-50 dark:bg-cyan-900/20 text-cyan-800 dark:text-cyan-400 border-2 border-cyan-200 dark:border-cyan-800'
                     : 'bg-red-50 dark:bg-red-900/20 text-red-800 dark:text-red-400 border-2 border-red-200 dark:border-red-800'
                 }`}
               >
@@ -207,7 +207,7 @@ export default function AddWidgetModal({ onClose }: AddWidgetModalProps) {
               value={refreshInterval}
               onChange={(e) => setRefreshInterval(Number(e.target.value) || 30)}
               min={1}
-              className="w-full px-4 py-2.5 border-2 border-purple-200 dark:border-purple-700 rounded-xl bg-white dark:bg-indigo-950 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-400 text-sm"
+              className="w-full px-4 py-2.5 border-2 border-cyan-200 dark:border-cyan-700 rounded-xl bg-white dark:bg-slate-950 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-400 text-sm"
             />
           </div>
 
@@ -221,8 +221,8 @@ export default function AddWidgetModal({ onClose }: AddWidgetModalProps) {
                 onClick={() => setDisplayMode('card')}
                 className={`flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all text-sm font-medium ${
                   displayMode === 'card'
-                    ? 'bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-lg'
-                    : 'bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 hover:bg-purple-200 dark:hover:bg-purple-800/40 border-2 border-purple-300/50 dark:border-purple-700/50'
+                    ? 'bg-gradient-to-r from-cyan-600 to-blue-600 text-white shadow-lg'
+                    : 'bg-cyan-100 dark:bg-cyan-900/30 text-cyan-700 dark:text-cyan-300 hover:bg-cyan-200 dark:hover:bg-cyan-800/40 border-2 border-cyan-300/50 dark:border-cyan-700/50'
                 }`}
               >
                 <LayoutDashboard size={18} />
@@ -264,7 +264,7 @@ export default function AddWidgetModal({ onClose }: AddWidgetModalProps) {
                     placeholder="Search for fields..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 border-2 border-purple-200 dark:border-purple-700 rounded-xl bg-white dark:bg-indigo-950 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-400 text-sm"
+                    className="w-full pl-10 pr-4 py-2.5 border-2 border-cyan-200 dark:border-cyan-700 rounded-xl bg-white dark:bg-slate-950 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-400 text-sm"
                   />
                 </div>
                 {displayMode === 'table' && (
@@ -308,7 +308,7 @@ export default function AddWidgetModal({ onClose }: AddWidgetModalProps) {
                             <div
                               key={index}
                               className={`p-4 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${
-                                isSelected ? 'bg-purple-50 dark:bg-purple-900/20 border-2 border-purple-300 dark:border-purple-700' : ''
+                                isSelected ? 'bg-cyan-50 dark:bg-cyan-900/20 border-2 border-cyan-300 dark:border-cyan-700' : ''
                               }`}
                             >
                               <div className="flex items-start gap-3">
@@ -316,8 +316,8 @@ export default function AddWidgetModal({ onClose }: AddWidgetModalProps) {
                                   onClick={() => toggleField(field)}
                                   className={`mt-0.5 flex-shrink-0 p-1.5 rounded-md transition-colors ${
                                     isSelected
-                                      ? 'bg-gradient-to-r from-purple-600 to-indigo-600 dark:from-purple-500 dark:to-indigo-500 text-white'
-                                      : 'bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 hover:bg-purple-200 dark:hover:bg-purple-800/40'
+                                      ? 'bg-gradient-to-r from-cyan-600 to-blue-600 dark:from-cyan-500 dark:to-blue-500 text-white'
+                                      : 'bg-cyan-100 dark:bg-cyan-900/30 text-cyan-600 dark:text-cyan-400 hover:bg-cyan-200 dark:hover:bg-cyan-800/40'
                                   }`}
                                 >
                                   {isSelected ? <Check size={14} /> : <Plus size={14} />}
@@ -350,7 +350,7 @@ export default function AddWidgetModal({ onClose }: AddWidgetModalProps) {
                     <h3 className="text-base font-semibold text-gray-900 dark:text-white">
                       Selected Fields
                     </h3>
-                    <span className="text-xs text-gray-500 dark:text-gray-400 bg-gradient-to-r from-purple-100 to-indigo-100 dark:from-purple-900/40 dark:to-indigo-900/40 text-purple-700 dark:text-purple-300 px-2 py-1 rounded-full font-medium border border-purple-300/50 dark:border-purple-700/50">
+                    <span className="text-xs text-gray-500 dark:text-gray-400 bg-gradient-to-r from-purple-100 to-indigo-100 dark:from-purple-900/40 dark:to-indigo-900/40 text-cyan-700 dark:text-cyan-300 px-2 py-1 rounded-full font-medium border border-cyan-300/50 dark:border-cyan-700/50">
                       {selectedFields.length} selected
                     </span>
                   </div>
@@ -409,7 +409,7 @@ export default function AddWidgetModal({ onClose }: AddWidgetModalProps) {
           <button
             onClick={handleSubmit}
             disabled={!widgetName.trim() || !apiUrl.trim() || selectedFields.length === 0}
-            className="w-full sm:w-auto px-6 py-2 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 dark:from-purple-500 dark:to-indigo-500 dark:hover:from-purple-600 dark:hover:to-indigo-600 text-white rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base shadow-lg shadow-purple-500/30"
+            className="w-full sm:w-auto px-6 py-2 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 dark:from-cyan-500 dark:to-blue-500 dark:hover:from-cyan-600 dark:hover:to-blue-600 text-white rounded-xl transition-all disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base shadow-lg shadow-cyan-500/30"
           >
             Add Widget
           </button>

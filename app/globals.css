@@ -5,18 +5,18 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --primary: #8b5cf6;
-  --primary-dark: #7c3aed;
-  --secondary: #6366f1;
+  --primary: #0ea5e9;
+  --primary-dark: #0284c7;
+  --secondary: #06b6d4;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #1e1b4b;
-    --foreground: #e9d5ff;
-    --primary: #a855f7;
-    --primary-dark: #9333ea;
-    --secondary: #818cf8;
+    --background: #0c1222;
+    --foreground: #cffafe;
+    --primary: #22d3ee;
+    --primary-dark: #06b6d4;
+    --secondary: #14b8a6;
   }
 }
 
