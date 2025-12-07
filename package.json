@@ -1,6 +1,7 @@
 {
   "name": "finboard",
   "version": "1.0.0",
+  "author": "Finboard Team",
   "description": "A customizable real-time finance monitoring dashboard with widget management",
   "private": true,
   "scripts": {
